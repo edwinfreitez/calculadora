@@ -107,7 +107,7 @@ if st.button("CALCULAR", use_container_width=True):
             
             # RESULTADOS
             st.metric(label="⚖️ PESAR EN ROMANA:", value=f"{p_fmt} Kg")
-            st.metric(label="VOLUMEN REAL:", value=f"{v_fmt} Lts")
+            st.metric(label="🧪 VOLUMEN REAL:", value=f"{v_fmt} Lts")
             
             # F.P. CON ESPACIO AL FINAL
             st.markdown(f'<div class="fp-final">Factor F.P. aplicado: {fp:.4f}</div>', unsafe_allow_html=True)
