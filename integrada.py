@@ -124,7 +124,7 @@ with tab1:
     c1, c2 = st.columns(2)
     with c1:
 
-         grado_n = st.number_input("Grado Real (°GL):", 50.0, 100.0, value=None, step=0.1, key="gn", format="%.1f", placeholder="0.0")
+         grado_n = st.number_input("Grado Real (°GL):", 50.0, 100.0, value=None, step=0.1, key="gn", format="%.1f", placeholder="Coloque el °GL")
     with c2:
         laa_sol = st.number_input("LAA Solicitados:", min_value=0.0, value=None, step=0.1, key="laas", placeholder="Coloque los LAA")
 
@@ -150,7 +150,7 @@ with tab2:
     st.info("Utilice esta opción para determinar cuántos LAA hay en un peso registrado por Romana.")
     c1, c2 = st.columns(2)
     with c1:
-        grado_i = st.number_input("Grado Real (°GL):", 50.0, 100.0, value=None, step=0.1, key="gi", format="%.1f", placeholder="0.0")
+        grado_i = st.number_input("Grado Real (°GL):", 50.0, 100.0, value=None, step=0.1, key="gi", format="%.1f", placeholder="Coloque el °GL")
     with c2:
         peso_r = st.number_input("Peso en Romana (Kg):", min_value=0.0, value=None, step=0.1, key="pr", placeholder="Coloque los Kg")
 
