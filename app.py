@@ -76,4 +76,39 @@ st.markdown(f"""
     <div class="header-container">
         <img src="{URL_LOGO}" width="50">
         <div>
-            <p class="titulo-
+            <p class="titulo-mini">Calculadora de Alcohol</p>
+            <p class="subtitulo-mini">Pase de Alcohol</p>
+            <p class="autor-text">By Edwin Freitez</p>
+        </div>
+    </div>
+    """, unsafe_allow_html=True)
+
+# ENTRADA DE DATOS
+c1, c2 = st.columns(2)
+with c1:
+    entrada_g = st.number_input("Grado Real (°GL):", 75.0, 100.0, 96.0, 0.1, format="%.1f")
+with c2:
+    laa = st.number_input("LAA Solicitados:", min_value=0, value=0, step=1)
+
+if st.button("CALCULAR", use_container_width=True):
+    fp = obtener_fp(entrada_g)
+    
+    if fp:
+        vol_bruto = (laa / entrada_g) * 100
+        peso_bruto = vol_bruto / fp
+        
+        v_fmt = "{:,}".format(round(vol_bruto)).replace(',', '.')
+        p_fmt = "{:,}".format(round(peso_bruto)).replace(',', '.')
+        
+        st.write(f"Resultados para **{entrada_g}°GL**:")
+        
+        # RESULTADOS
+        st.metric(label="⚖️ PESAR EN ROMANA", value=f"{p_fmt} Kg")
+        st.metric(label="Volumen Real", value=f"{v_fmt} Lts")
+        
+        # F.P. CON ESPACIO AL FINAL
+        st.markdown(f'<div class="fp-final">Factor F.P. aplicado: {fp:.4f}</div>', unsafe_allow_html=True)
+        st.write("") 
+        
+    else:
+        st.error("Error en rango de grado.")
