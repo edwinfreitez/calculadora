@@ -27,7 +27,7 @@ def obtener_fp(grado):
 
 # INTERFAZ
 st.title("Calculadora de Pesaje de Alcohol")
-st.markdown("### Planta de Blending")
+st.markdown("### Pase de Alcohol")
 st.caption("Desarrollado por: **Edwin Freitez**")
 st.divider()
 
