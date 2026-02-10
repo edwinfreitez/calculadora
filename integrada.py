@@ -5,13 +5,24 @@ st.set_page_config(page_title="DUSA - Calculadora de Alcohol", page_icon="🧪",
 
 # CSS UNIFICADO (Dinámico para ambos modos)
 st.markdown("""
-    <style>
+   <style>
     .block-container {padding-top: 2rem; padding-bottom: 2rem;}
     [data-testid="stMetricValue"] {font-size: 1.8rem; font-weight: bold;}
-    /* Cambia el color rojo de la pestaña seleccionada a azul */
+    
+    /* 1. Cambia el color del texto y la línea inferior de la pestaña */
     [data-testid="stTabs"] button[aria-selected="true"] {
         color: #1A5276 !important;
         border-bottom-color: #1A5276 !important;
+    }
+
+    /* 2. ELIMINA LA BARRA ROJA SUPERIOR (Muy importante) */
+    [data-testid="stTabs"] button[aria-selected="true"] > div:first-child {
+        background-color: #1A5276 !important;
+    }
+
+    /* 3. Cambia el color del borde cuando pasas el mouse por encima */
+    [data-testid="stTabs"] button:hover {
+        color: #1A5276 !important;
     }
     /* Estilo para el encabezado */
     .header-container {
