@@ -6,7 +6,8 @@ st.set_page_config(page_title="Pase de Alcohol DUSA", page_icon="🧪", layout="
 # CSS para ajustes definitivos
 st.markdown("""
     <style>
-    .block-container {padding-top: 2rem; padding-bottom: 2rem;}
+    /* 1. MÁS MARGEN SUPERIOR PARA EVITAR CORTES */
+    .block-container {padding-top: 3.5rem; padding-bottom: 2rem;}
     
     /* Resultados numéricos */
     [data-testid="stMetricValue"] {font-size: 1.8rem; font-weight: bold;}
@@ -29,24 +30,24 @@ st.markdown("""
         margin-bottom: 0.5rem;
     }
     
-    /* AJUSTES DE TEXTO SOLICITADOS */
+    /* AJUSTES DE TEXTO */
     .titulo-mini {
-        font-size: 0.75rem; /* Significativamente reducido */
+        font-size: 0.75rem;
         margin: 0;
         text-transform: uppercase;
         font-weight: bold;
         color: #808B96;
     }
     .subtitulo-mini {
-        font-size: 0.85rem; /* Mucho más reducido que antes */
+        font-size: 0.85rem;
         margin: 0;
         color: #2E4053;
         font-weight: bold;
     }
     .autor-text {
         margin: 0;
-        font-size: 0.95rem; /* Aumentado para legibilidad */
-        color: #21618C;
+        font-size: 0.95rem;
+        color: #21618C; /* El azul que te gustó */
         font-weight: 500;
     }
     </style>
@@ -88,27 +89,30 @@ c1, c2 = st.columns(2)
 with c1:
     entrada_g = st.number_input("Grado Real (°GL):", 75.0, 100.0, 96.0, 0.1, format="%.1f")
 with c2:
-    laa = st.number_input("LAA Solicitados:", min_value=0, value=0, step=1)
+    # 2. LAA POR DEFECTO EN BLANCO (None)
+    laa = st.number_input("LAA Solicitados:", min_value=0, value=None, step=1, placeholder="Ingrese LAA")
 
 if st.button("CALCULAR", use_container_width=True):
-    fp = obtener_fp(entrada_g)
-    
-    if fp:
-        vol_bruto = (laa / entrada_g) * 100
-        peso_bruto = vol_bruto / fp
+    if laa is not None:
+        fp = obtener_fp(entrada_g)
         
-        v_fmt = "{:,}".format(round(vol_bruto)).replace(',', '.')
-        p_fmt = "{:,}".format(round(peso_bruto)).replace(',', '.')
-        
-        st.write(f"Resultados para **{entrada_g}°GL**:")
-        
-        # RESULTADOS
-        st.metric(label="⚖️ PESAR EN ROMANA", value=f"{p_fmt} Kg")
-        st.metric(label="Volumen Real", value=f"{v_fmt} Lts")
-        
-        # F.P. CON ESPACIO AL FINAL
-        st.markdown(f'<div class="fp-final">Factor F.P. aplicado: {fp:.4f}</div>', unsafe_allow_html=True)
-        st.write("") 
-        
+        if fp:
+            vol_bruto = (laa / entrada_g) * 100
+            peso_bruto = vol_bruto / fp
+            
+            v_fmt = "{:,}".format(round(vol_bruto)).replace(',', '.')
+            p_fmt = "{:,}".format(round(peso_bruto)).replace(',', '.')
+            
+            st.write(f"Resultados para **{entrada_g}°GL**:")
+            
+            # RESULTADOS
+            st.metric(label="⚖️ PESAR EN ROMANA", value=f"{p_fmt} Kg")
+            st.metric(label="Volumen Real", value=f"{v_fmt} Lts")
+            
+            # F.P. CON ESPACIO AL FINAL
+            st.markdown(f'<div class="fp-final">Factor F.P. aplicado: {fp:.4f}</div>', unsafe_allow_html=True)
+            st.write("") 
+        else:
+            st.error("Error en rango de grado.")
     else:
-        st.error("Error en rango de grado.")
+        st.warning("Por favor, ingrese el valor de LAA.")
