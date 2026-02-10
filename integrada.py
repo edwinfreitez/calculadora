@@ -152,7 +152,7 @@ with tab2:
     with c1:
         grado_i = st.number_input("Grado Real (°GL):", 50.0, 100.0, value=None, step=0.1, key="gi", format="%.1f", placeholder="0.0")
     with c2:
-        peso_r = st.number_input("Peso en Romana (Kg):", min_value=0.0, value=None, step=0.1, key="pr", placeholder="Kg medidos")
+        peso_r = st.number_input("Peso en Romana (Kg):", min_value=0.0, value=None, step=0.1, key="pr", placeholder="Coloque los Kg")
 
     if st.button("CALCULAR LAA", use_container_width=True):
         if peso_r and grado_i:
