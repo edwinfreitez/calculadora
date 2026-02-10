@@ -1,7 +1,7 @@
 import streamlit as st
 
 # 1. CONFIGURACIÓN CON ESPACIO SUPERIOR
-st.set_page_config(page_title="Blending DUSA", page_icon="🧪", layout="centered")
+st.set_page_config(page_title="Calculadora DUSA", page_icon="🧪", layout="centered")
 
 # Ajuste de CSS: Agregamos un margen de 3rem (espacio) arriba para el logo
 st.markdown("""
@@ -43,7 +43,7 @@ URL_LOGO = "https://media.licdn.com/dms/image/v2/C4E0BAQGROeCPt2-5rQ/company-log
 
 # Colocamos el logo
 st.image(URL_LOGO, width=60) 
-st.subheader("Pase de Alcohol")
+st.subheader("Calculadora para Pase de Alcohol")
 st.caption("By Edwin Freitez")
 
 # ENTRADA DE DATOS
@@ -51,7 +51,7 @@ c1, c2 = st.columns(2)
 with c1:
     entrada_g = st.number_input("Grado Real (°GL):", 75.0, 100.0, 96.0, 0.1, format="%.1f")
 with c2:
-    laa = st.number_input("LAA Solicitado:", min_value=0, value=1000, step=1)
+    laa = st.number_input("LAA Solicitados:", min_value=0, value=0, step=1)
 
 if st.button("CALCULAR", use_container_width=True):
     fp = obtener_fp(entrada_g)
