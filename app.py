@@ -1,17 +1,22 @@
 import streamlit as st
 
-# 1. CONFIGURACIÓN ULTRA COMPACTA
+# 1. CONFIGURACIÓN CON ESPACIO SUPERIOR
 st.set_page_config(page_title="Blending DUSA", page_icon="🧪", layout="centered")
 
-# CSS para forzar que NADA se corte y todo suba al máximo
+# Ajuste de CSS: Agregamos un margen de 3rem (espacio) arriba para el logo
 st.markdown("""
     <style>
-    .block-container {padding-top: 0.5rem; padding-bottom: 0rem;}
+    .block-container {
+        padding-top: 3rem; 
+        padding-bottom: 0rem;
+    }
     [data-testid="stMetricValue"] {font-size: 1.8rem; font-weight: bold;}
     div[data-testid="stMetric"]:nth-child(1) [data-testid="stMetricValue"] {color: #D35400;}
-    /* Evitar cualquier recorte en imágenes */
+    
+    /* Asegurar que la imagen no se recorte bajo ninguna circunstancia */
     [data-testid="stImage"] img {
         object-fit: contain !important;
+        border: 1px solid rgba(0,0,0,0); /* Un borde invisible ayuda a veces a forzar el renderizado */
     }
     </style>
     """, unsafe_allow_html=True)
@@ -33,10 +38,11 @@ def obtener_fp(grado):
         return puntos[g_base] + ratio * (puntos[g_next] - puntos[g_base])
     return None
 
-# LOGO REDUCIDO AL 50% (Tamaño pequeño para asegurar visibilidad total)
+# LOGO CON TAMAÑO SEGURO
 URL_LOGO = "https://media.licdn.com/dms/image/v2/C4E0BAQGROeCPt2-5rQ/company-logo_200_200/company-logo_200_200/0/1630651014568/destileras_unidas_s_a_logo?e=2147483647&v=beta&t=4KCIm7iySF8w6uXTN9ISvF6zPFRGhe8L3MTN2oGJh34"
 
-st.image(URL_LOGO, width=50) 
+# Colocamos el logo
+st.image(URL_LOGO, width=60) 
 st.subheader("Pase de Alcohol")
 st.caption("By Edwin Freitez")
 
