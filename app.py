@@ -1,22 +1,23 @@
 import streamlit as st
 
 # 1. CONFIGURACIÓN
-st.set_page_config(page_title="Blending DUSA", page_icon="🧪", layout="centered")
+st.set_page_config(page_title="Pase de Alcohol DUSA", page_icon="🧪", layout="centered")
 
-# CSS para ajustes finales de precisión
+# CSS para ajustes definitivos
 st.markdown("""
     <style>
-    .block-container {padding-top: 2rem; padding-bottom: 0rem;}
+    .block-container {padding-top: 2rem; padding-bottom: 2rem;} /* Añadido espacio abajo */
     
     /* Resultados numéricos */
     [data-testid="stMetricValue"] {font-size: 1.8rem; font-weight: bold;}
     div[data-testid="stMetric"]:nth-child(1) [data-testid="stMetricValue"] {color: #D35400;}
     
-    /* F.P. Súper pegado a los resultados */
+    /* F.P. Súper pegado a los resultados con margen inferior */
     .fp-final {
         font-size: 1.05rem;
         color: #566573;
         margin-top: -10px;
+        margin-bottom: 20px; /* Espacio extra abajo */
         font-weight: 500;
     }
     
@@ -30,15 +31,17 @@ st.markdown("""
     
     /* AJUSTES SOLICITADOS */
     .titulo-principal {
-        font-size: 1.45rem; /* Un poco más pequeño */
+        font-size: 0.9rem; /* Reducido a la mitad aprox */
         margin: 0;
         line-height: 1.1;
+        text-transform: uppercase;
+        font-weight: bold;
     }
     .subtitulo {
-        font-size: 1.15rem; /* Un poco más grande */
+        font-size: 1.2rem; /* Un poco más prominente */
         margin: 0;
-        color: #5D6D7E;
-        font-weight: 500;
+        color: #2E4053;
+        font-weight: bold;
     }
     </style>
     """, unsafe_allow_html=True)
@@ -65,10 +68,10 @@ URL_LOGO = "https://media.licdn.com/dms/image/v2/C4E0BAQGROeCPt2-5rQ/company-log
 
 st.markdown(f"""
     <div class="header-container">
-        <img src="{URL_LOGO}" width="55">
+        <img src="{URL_LOGO}" width="50">
         <div>
-            <h2 class="titulo-principal">Pase de Alcohol</h2>
-            <p class="subtitulo">Calculadora</p>
+            <p class="titulo-principal">Calculadora de Alcohol</p>
+            <h2 class="subtitulo">Pase de Alcohol</h2>
             <p style='margin:0; font-size: 0.8rem; color:gray;'>Edwin Freitez</p>
         </div>
     </div>
@@ -79,7 +82,7 @@ c1, c2 = st.columns(2)
 with c1:
     entrada_g = st.number_input("Grado Real (°GL):", 75.0, 100.0, 96.0, 0.1, format="%.1f")
 with c2:
-    laa = st.number_input("LAA Solicitado:", min_value=0, value=1000, step=1)
+    laa = st.number_input("LAA Solicitados:", min_value=0, value=0, step=1)
 
 if st.button("CALCULAR", use_container_width=True):
     fp = obtener_fp(entrada_g)
@@ -97,7 +100,9 @@ if st.button("CALCULAR", use_container_width=True):
         st.metric(label="⚖️ PESAR EN ROMANA", value=f"{p_fmt} Kg")
         st.metric(label="Volumen Real", value=f"{v_fmt} Lts")
         
+        # F.P. CON ESPACIO AL FINAL
         st.markdown(f'<div class="fp-final">Factor F.P. aplicado: {fp:.4f}</div>', unsafe_allow_html=True)
+        st.write("") # Línea en blanco extra
         
     else:
         st.error("Error en rango de grado.")
