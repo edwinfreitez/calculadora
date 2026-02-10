@@ -119,7 +119,7 @@ with tab1:
     with c1:
         grado_n = st.number_input("Grado Real (°GL):", 50.0, 100.0, 96.0, 0.1, key="gn", format="%.1f")
     with c2:
-        laa_sol = st.number_input("LAA Solicitados:", min_value=0.0, value=None, step=0.1, key="laas", placeholder="Coloque aquí los LAA")
+        laa_sol = st.number_input("LAA Solicitados:", min_value=0.0, value=None, step=0.1, key="laas", placeholder="Coloque los LAA")
 
     if st.button("CALCULAR PESO REQUERIDO", use_container_width=True):
         if laa_sol:
