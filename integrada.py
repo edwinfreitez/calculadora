@@ -25,7 +25,7 @@ st.markdown("""
         border-radius: 10px;
         background-color: #f8f9f9;
     }
-    .titulo-mini { font-size: 0.75rem; margin: 0; text-transform: uppercase; font-weight: bold; color: #808B96; }
+    .titulo-mini { font-size: 0.75rem; margin: 0; text-transform: uppercase; font-weight: bold; color: #2E4053; }
     .subtitulo-mini { font-size: 1.1rem; margin: 0; color: #2E4053; font-weight: bold; }
     .autor-text { margin: 0; font-size: 0.9rem; color: #21618C; font-weight: 500; }
     
