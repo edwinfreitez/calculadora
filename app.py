@@ -110,7 +110,7 @@ if st.button("CALCULAR", use_container_width=True):
             st.metric(label="🧪 VOLUMEN REAL:", value=f"{v_fmt} Lts")
             
             # F.P. CON ESPACIO AL FINAL
-            st.markdown(f'<div class="fp-final">Factor F.P. aplicado: {fp:.4f}</div>', unsafe_allow_html=True)
+            st.markdown(f'<div class="fp-final">Factor de Peso: {fp:.4f}</div>', unsafe_allow_html=True)
             st.write("") 
         else:
             st.error("Error en rango de grado.")
