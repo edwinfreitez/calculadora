@@ -3,14 +3,16 @@ import streamlit as st
 # 1. CONFIGURACIÓN COMPACTA
 st.set_page_config(page_title="Blending DUSA", page_icon="🧪", layout="centered")
 
-# Estilo CSS para eliminar el espacio en blanco superior y resaltar la Romana
+# Estilo CSS para eliminar el espacio superior y asegurar que el logo no se corte
 st.markdown("""
     <style>
     .block-container {padding-top: 1rem; padding-bottom: 0rem;}
     [data-testid="stMetricValue"] {font-size: 2rem; font-weight: bold;}
-    /* Color rojo/naranja suave para resaltar el peso en romana */
     [data-testid="stMetricLabel"] {font-size: 1.1rem;}
+    /* Color para resaltar el peso en romana */
     div[data-testid="stMetric"]:nth-child(1) [data-testid="stMetricValue"] {color: #D35400;}
+    /* Asegurar que la imagen no tenga márgenes raros */
+    img {max-width: 100%; height: auto;}
     </style>
     """, unsafe_allow_html=True)
 
@@ -31,15 +33,14 @@ def obtener_fp(grado):
         return puntos[g_base] + ratio * (puntos[g_next] - puntos[g_base])
     return None
 
-# ENCABEZADO MINIMIZADO (Logo y Título en una línea)
-col_l, col_t = st.columns([1, 5])
-with col_l:
-    st.image("https://media.licdn.com/dms/image/v2/C4E0BAQGROeCPt2-5rQ/company-logo_200_200/company-logo_200_200/0/1630651014568/destileras_unidas_s_a_logo?e=2147483647&v=beta&t=4KCIm7iySF8w6uXTN9ISvF6zPFRGhe8L3MTN2oGJh34", width=60)
-with col_t:
-    st.markdown("### Pase de Alcohol")
-    st.caption("By Edwin Freitez")
+# ENCABEZADO SIN COLUMNAS PARA EVITAR CORTES
+URL_LOGO = "https://media.licdn.com/dms/image/v2/C4E0BAQGROeCPt2-5rQ/company-logo_200_200/company-logo_200_200/0/1630651014568/destileras_unidas_s_a_logo?e=2147483647&v=beta&t=4KCIm7iySF8w6uXTN9ISvF6zPFRGhe8L3MTN2oGJh34"
 
-# ENTRADA DE DATOS (Lo primero que se ve al abrir)
+st.image(URL_LOGO, width=80) # Ajustado a 80 para que sea visible pero discreto
+st.markdown("### Pase de Alcohol")
+st.caption("By Edwin Freitez")
+
+# ENTRADA DE DATOS
 c1, c2 = st.columns(2)
 with c1:
     entrada_g = st.number_input("Grado Real (°GL):", 75.0, 100.0, 96.0, 0.1, format="%.1f")
@@ -53,17 +54,13 @@ if st.button("CALCULAR", use_container_width=True):
         vol_bruto = (laa / entrada_g) * 100
         peso_bruto = vol_bruto / fp
         
-        # Formateo con puntos para miles
         v_fmt = "{:,}".format(round(vol_bruto)).replace(',', '.')
         p_fmt = "{:,}".format(round(peso_bruto)).replace(',', '.')
         
         st.divider()
         st.write(f"Resultados para **{entrada_g}°GL**:")
         
-        # LA PRIORIDAD: PESAR EN ROMANA (En grande y color destacado)
         st.metric(label="⚖️ PESAR EN ROMANA", value=f"{p_fmt} Kg")
-        
-        # VOLUMEN SECUNDARIO
         st.metric(label="Volumen Real", value=f"{v_fmt} Lts")
         
         st.caption(f"F.P.: {fp:.4f}")
