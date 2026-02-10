@@ -6,7 +6,7 @@ st.set_page_config(page_title="Pase de Alcohol DUSA", page_icon="🧪", layout="
 # CSS para ajustes definitivos
 st.markdown("""
     <style>
-    .block-container {padding-top: 2rem; padding-bottom: 2rem;} /* Añadido espacio abajo */
+    .block-container {padding-top: 2rem; padding-bottom: 2rem;}
     
     /* Resultados numéricos */
     [data-testid="stMetricValue"] {font-size: 1.8rem; font-weight: bold;}
@@ -17,7 +17,7 @@ st.markdown("""
         font-size: 1.05rem;
         color: #566573;
         margin-top: -10px;
-        margin-bottom: 20px; /* Espacio extra abajo */
+        margin-bottom: 20px;
         font-weight: 500;
     }
     
@@ -29,19 +29,25 @@ st.markdown("""
         margin-bottom: 0.5rem;
     }
     
-    /* AJUSTES SOLICITADOS */
-    .titulo-principal {
-        font-size: 0.9rem; /* Reducido a la mitad aprox */
+    /* AJUSTES DE TEXTO SOLICITADOS */
+    .titulo-mini {
+        font-size: 0.75rem; /* Significativamente reducido */
         margin: 0;
-        line-height: 1.1;
         text-transform: uppercase;
         font-weight: bold;
+        color: #808B96;
     }
-    .subtitulo {
-        font-size: 1.2rem; /* Un poco más prominente */
+    .subtitulo-mini {
+        font-size: 0.85rem; /* Mucho más reducido que antes */
         margin: 0;
         color: #2E4053;
         font-weight: bold;
+    }
+    .autor-text {
+        margin: 0;
+        font-size: 0.95rem; /* Aumentado para legibilidad */
+        color: #21618C;
+        font-weight: 500;
     }
     </style>
     """, unsafe_allow_html=True)
@@ -70,39 +76,4 @@ st.markdown(f"""
     <div class="header-container">
         <img src="{URL_LOGO}" width="50">
         <div>
-            <p class="titulo-principal">Calculadora de Alcohol</p>
-            <h2 class="subtitulo">Pase de Alcohol</h2>
-            <p style='margin:0; font-size: 0.4rem; color:gray;'>Edwin Freitez</p>
-        </div>
-    </div>
-    """, unsafe_allow_html=True)
-
-# ENTRADA DE DATOS
-c1, c2 = st.columns(2)
-with c1:
-    entrada_g = st.number_input("Grado Real (°GL):", 75.0, 100.0, 96.0, 0.1, format="%.1f")
-with c2:
-    laa = st.number_input("LAA Solicitados:", min_value=0, value=0, step=1)
-
-if st.button("CALCULAR", use_container_width=True):
-    fp = obtener_fp(entrada_g)
-    
-    if fp:
-        vol_bruto = (laa / entrada_g) * 100
-        peso_bruto = vol_bruto / fp
-        
-        v_fmt = "{:,}".format(round(vol_bruto)).replace(',', '.')
-        p_fmt = "{:,}".format(round(peso_bruto)).replace(',', '.')
-        
-        st.write(f"Resultados para **{entrada_g}°GL**:")
-        
-        # RESULTADOS
-        st.metric(label="⚖️ PESAR EN ROMANA", value=f"{p_fmt} Kg")
-        st.metric(label="Volumen Real", value=f"{v_fmt} Lts")
-        
-        # F.P. CON ESPACIO AL FINAL
-        st.markdown(f'<div class="fp-final">Factor F.P. aplicado: {fp:.4f}</div>', unsafe_allow_html=True)
-        st.write("") # Línea en blanco extra
-        
-    else:
-        st.error("Error en rango de grado.")
+            <p class="titulo-
