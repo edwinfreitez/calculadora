@@ -135,7 +135,7 @@ with tab1:
                 peso_kg = vol_bruto / fp
                 
                 # Mostrar resultados en Naranja (Color original)
-                st.markdown('<p style="font-size: 16px; font-weight: bold; color: black;">Resultados:</p>', unsafe_allow_html=True)
+                st.markdown('<p style="font-size: 16px; font-weight: bold; color: #2E86C1;">Resultados:</p>', unsafe_allow_html=True)
                 st.metric(label="🚛 PESO A CARGAR:", value=f"{formatear_numero(peso_kg)} Kg")
                 st.metric(label="📊 VOLUMEN REAL:", value=f"{formatear_numero(vol_bruto, 1)} Lts")
                 st.markdown(f'<div class="fp-final">Factor de Peso: {fp:.4f}</div>', unsafe_allow_html=True)
@@ -161,7 +161,7 @@ with tab2:
                 laa_res = (vol_real * grado_i) / 100
                 
                 # Mostrar resultados en Azul (Como pediste para la inversa)
-                st.markdown('<p style="font-size: 16px; font-weight: bold; color: black;">Resultados:</p>', unsafe_allow_html=True)
+                st.markdown('<p style="font-size: 16px; font-weight: bold; color: #2E86C1;">Resultados:</p>', unsafe_allow_html=True)
                 st.write(f'<style>div[data-testid="stMetricValue"] {{color: #2E86C1;}}</style>', unsafe_allow_html=True)
                 st.metric(label="🧪 LAA CALCULADOS:", value=f"{formatear_numero(laa_res)} LAA")
                 st.metric(label="📊 VOLUMEN REAL:", value=f"{formatear_numero(vol_real, 1)} Lts")
