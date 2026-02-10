@@ -3,7 +3,7 @@ import streamlit as st
 # 1. CONFIGURACIÓN
 st.set_page_config(page_title="Blending DUSA", page_icon="🧪", layout="centered")
 
-# CSS para ajustes de precisión
+# CSS para ajustes finales de precisión
 st.markdown("""
     <style>
     .block-container {padding-top: 2rem; padding-bottom: 0rem;}
@@ -16,7 +16,7 @@ st.markdown("""
     .fp-final {
         font-size: 1.05rem;
         color: #566573;
-        margin-top: -10px; /* Margen negativo para subirlo */
+        margin-top: -10px;
         font-weight: 500;
     }
     
@@ -28,16 +28,17 @@ st.markdown("""
         margin-bottom: 0.5rem;
     }
     
-    /* Ajuste de tamaños de título y subtítulo */
+    /* AJUSTES SOLICITADOS */
     .titulo-principal {
-        font-size: 1.6rem; /* Un poco más pequeño */
+        font-size: 1.45rem; /* Un poco más pequeño */
         margin: 0;
         line-height: 1.1;
     }
     .subtitulo {
-        font-size: 1rem; /* Más pequeño */
+        font-size: 1.15rem; /* Un poco más grande */
         margin: 0;
         color: #5D6D7E;
+        font-weight: 500;
     }
     </style>
     """, unsafe_allow_html=True)
@@ -59,7 +60,7 @@ def obtener_fp(grado):
         return puntos[g_base] + ratio * (puntos[g_next] - puntos[g_base])
     return None
 
-# ENCABEZADO OPTIMIZADO
+# ENCABEZADO
 URL_LOGO = "https://media.licdn.com/dms/image/v2/C4E0BAQGROeCPt2-5rQ/company-logo_200_200/company-logo_200_200/0/1630651014568/destileras_unidas_s_a_logo?e=2147483647&v=beta&t=4KCIm7iySF8w6uXTN9ISvF6zPFRGhe8L3MTN2oGJh34"
 
 st.markdown(f"""
@@ -96,7 +97,6 @@ if st.button("CALCULAR", use_container_width=True):
         st.metric(label="⚖️ PESAR EN ROMANA", value=f"{p_fmt} Kg")
         st.metric(label="Volumen Real", value=f"{v_fmt} Lts")
         
-        # F.P. CON MARGEN NEGATIVO PARA SUBIRLO AL MÁXIMO
         st.markdown(f'<div class="fp-final">Factor F.P. aplicado: {fp:.4f}</div>', unsafe_allow_html=True)
         
     else:
