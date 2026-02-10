@@ -60,4 +60,44 @@ def obtener_fp(grado):
     return None
 
 # ENCABEZADO OPTIMIZADO
-URL_LOGO = "https://media
+URL_LOGO = "https://media.licdn.com/dms/image/v2/C4E0BAQGROeCPt2-5rQ/company-logo_200_200/company-logo_200_200/0/1630651014568/destileras_unidas_s_a_logo?e=2147483647&v=beta&t=4KCIm7iySF8w6uXTN9ISvF6zPFRGhe8L3MTN2oGJh34"
+
+st.markdown(f"""
+    <div class="header-container">
+        <img src="{URL_LOGO}" width="55">
+        <div>
+            <h2 class="titulo-principal">Pase de Alcohol</h2>
+            <p class="subtitulo">Calculadora</p>
+            <p style='margin:0; font-size: 0.8rem; color:gray;'>Edwin Freitez</p>
+        </div>
+    </div>
+    """, unsafe_allow_html=True)
+
+# ENTRADA DE DATOS
+c1, c2 = st.columns(2)
+with c1:
+    entrada_g = st.number_input("Grado Real (°GL):", 75.0, 100.0, 96.0, 0.1, format="%.1f")
+with c2:
+    laa = st.number_input("LAA Solicitado:", min_value=0, value=1000, step=1)
+
+if st.button("CALCULAR", use_container_width=True):
+    fp = obtener_fp(entrada_g)
+    
+    if fp:
+        vol_bruto = (laa / entrada_g) * 100
+        peso_bruto = vol_bruto / fp
+        
+        v_fmt = "{:,}".format(round(vol_bruto)).replace(',', '.')
+        p_fmt = "{:,}".format(round(peso_bruto)).replace(',', '.')
+        
+        st.write(f"Resultados para **{entrada_g}°GL**:")
+        
+        # RESULTADOS
+        st.metric(label="⚖️ PESAR EN ROMANA", value=f"{p_fmt} Kg")
+        st.metric(label="Volumen Real", value=f"{v_fmt} Lts")
+        
+        # F.P. CON MARGEN NEGATIVO PARA SUBIRLO AL MÁXIMO
+        st.markdown(f'<div class="fp-final">Factor F.P. aplicado: {fp:.4f}</div>', unsafe_allow_html=True)
+        
+    else:
+        st.error("Error en rango de grado.")
