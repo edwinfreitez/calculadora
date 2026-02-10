@@ -8,7 +8,11 @@ st.markdown("""
     <style>
     .block-container {padding-top: 2rem; padding-bottom: 2rem;}
     [data-testid="stMetricValue"] {font-size: 1.8rem; font-weight: bold;}
-    
+    /* Cambia el color rojo de la pestaña seleccionada a azul */
+    [data-testid="stTabs"] button[aria-selected="true"] {
+        color: #1A5276 !important;
+        border-bottom-color: #1A5276 !important;
+    }
     /* Estilo para el encabezado */
     .header-container {
         display: flex;
@@ -121,7 +125,7 @@ with tab1:
     with c2:
         laa_sol = st.number_input("LAA Solicitados:", min_value=0.0, value=None, step=0.1, key="laas", placeholder="Coloque los LAA")
 
-    if st.button("CALCULAR PESO REQUERIDO", use_container_width=True):
+    if st.button("CALCULAR PESO", use_container_width=True):
         if laa_sol:
             fp = obtener_fp(grado_n)
             if fp:
@@ -147,7 +151,7 @@ with tab2:
     with c2:
         peso_r = st.number_input("Peso en Romana (Kg):", min_value=0.0, value=None, step=0.1, key="pr", placeholder="Kg medidos")
 
-    if st.button("CALCULAR LAA RESULTANTES", use_container_width=True):
+    if st.button("CALCULAR LAA", use_container_width=True):
         if peso_r:
             fp = obtener_fp(grado_i)
             if fp:
