@@ -102,7 +102,7 @@ st.markdown(f"""
     <div class="header-container">
         <img src="{URL_LOGO}" width="60">
         <div>
-            <p class="titulo-mini">Sistema Integrado de Alcoholes</p>
+            <p class="titulo-mini">Calculadora de Alcoholes</p>
             <p class="subtitulo-mini">Destilerías Unidas S.A.</p>
             <p class="autor-text">© Edwin Freitez</p>
         </div>
@@ -110,16 +110,16 @@ st.markdown(f"""
     """, unsafe_allow_html=True)
 
 # 2. SELECTOR DE MODO (Pestañas)
-tab1, tab2 = st.tabs(["📊 Calcular Peso (Normal)", "⚖️ Calcular LAA (Inversa)"])
+tab1, tab2 = st.tabs(["📊 Calcular Peso", "⚖️ Calcular LAA"])
 
 # --- MODO 1: NORMAL (LAA -> PESO) ---
 with tab1:
-    st.info("Utilice esta opción para saber cuánto debe pesar el camión/tanque según los LAA solicitados.")
+    st.info("Utilice esta opción para saber cuánto se debe PESAR para el camión o tanque.")
     c1, c2 = st.columns(2)
     with c1:
         grado_n = st.number_input("Grado Real (°GL):", 50.0, 100.0, 96.0, 0.1, key="gn", format="%.1f")
     with c2:
-        laa_sol = st.number_input("LAA Solicitados:", min_value=0.0, value=None, step=0.1, key="laas", placeholder="Lts Alcohol")
+        laa_sol = st.number_input("LAA Solicitados:", min_value=0.0, value=None, step=0.1, key="laas", placeholder="Coloque aquí los LAA")
 
     if st.button("CALCULAR PESO REQUERIDO", use_container_width=True):
         if laa_sol:
@@ -131,8 +131,8 @@ with tab1:
                 # Mostrar resultados en Naranja (Color original)
                 st.markdown("### Resultados:")
                 st.metric(label="🚛 PESO A CARGAR:", value=f"{formatear_numero(peso_kg)} Kg")
-                st.metric(label="📊 VOLUMEN BRUTO:", value=f"{formatear_numero(vol_bruto, 1)} Lts")
-                st.markdown(f'<div class="fp-final">Factor de Peso aplicado: {fp:.4f}</div>', unsafe_allow_html=True)
+                st.metric(label="📊 VOLUMEN REAL:", value=f"{formatear_numero(vol_bruto, 1)} Lts")
+                st.markdown(f'<div class="fp-final">Factor de Peso: {fp:.4f}</div>', unsafe_allow_html=True)
             else:
                 st.error("Grado fuera de rango.")
         else:
@@ -157,10 +157,10 @@ with tab2:
                 # Mostrar resultados en Azul (Como pediste para la inversa)
                 st.markdown("### Resultados:")
                 st.write(f'<style>div[data-testid="stMetricValue"] {{color: #2E86C1;}}</style>', unsafe_allow_html=True)
-                st.metric(label="🧪 LAA CALCULADOS:", value=f"{formatear_numero(laa_res)} Lts")
+                st.metric(label="🧪 LAA CALCULADOS:", value=f"{formatear_numero(laa_res)} LAA")
                 st.metric(label="📊 VOLUMEN REAL:", value=f"{formatear_numero(vol_real, 1)} Lts")
-                st.markdown(f'<div class="fp-final">Factor de Peso aplicado: {fp:.4f}</div>', unsafe_allow_html=True)
+                st.markdown(f'<div class="fp-final">Factor de Peso: {fp:.4f}</div>', unsafe_allow_html=True)
             else:
                 st.error("Grado fuera de rango.")
         else:
-            st.warning("Ingrese el peso de romana.")
+            st.warning("Ingrese el peso de la romana.")
