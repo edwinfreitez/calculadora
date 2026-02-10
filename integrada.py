@@ -6,24 +6,16 @@ st.set_page_config(page_title="DUSA - Calculadora de Alcohol", page_icon="🧪",
 # CSS UNIFICADO (Dinámico para ambos modos)
 st.markdown("""
    <style>
-    .block-container {padding-top: 2rem; padding-bottom: 2rem;}
+    .block-container {padding-top: 3.5rem; padding-bottom: 2rem;}
     [data-testid="stMetricValue"] {font-size: 1.8rem; font-weight: bold;}
-    
-    /* 1. Color de la fuente (pestaña seleccionada) */
-    [data-testid="stTabs"] button[aria-selected="true"] p {
-        color: #1A5276 !important;
+    div[data-testid="stMetric"]:nth-child(1) [data-testid="stMetricValue"] {color: #2E86C1;} /* Azul para LAA */
+    .fp-final {
+        font-size: 1.05rem;
+        color: #566573;
+        margin-top: -10px;
+        margin-bottom: 20px;
+        font-weight: 500;
     }
-
-    /* 2. Color de la línea de abajo (el borde) */
-    [data-testid="stTabs"] button[aria-selected="true"] {
-        border-bottom-color: #1A5276 !important;
-    }
-
-    /* 3. Color de la línea decorativa (la que suele quedarse roja) */
-    [data-testid="stTabs"] button[aria-selected="true"] > div:first-child {
-        background-color: #1A5276 !important;
-    }
-    /* Estilo para el encabezado */
     .header-container {
         display: flex;
         align-items: center;
