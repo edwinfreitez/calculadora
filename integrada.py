@@ -123,12 +123,13 @@ with tab1:
     st.info("Utilice esta opción para saber cuánto se debe PESAR para el camión o tanque.")
     c1, c2 = st.columns(2)
     with c1:
-        grado_n = st.number_input("Grado Real (°GL):", 50.0, 100.0, 96.0, 0.1, key="gn", format="%.1f")
+
+         grado_n = st.number_input("Grado Real (°GL):", 50.0, 100.0, value=None, step=0.1, key="gn", format="%.1f", placeholder="0.0")
     with c2:
         laa_sol = st.number_input("LAA Solicitados:", min_value=0.0, value=None, step=0.1, key="laas", placeholder="Coloque los LAA")
 
     if st.button("CALCULAR PESO", use_container_width=True):
-        if laa_sol:
+        if laa_sol and grado_n:
             fp = obtener_fp(grado_n)
             if fp:
                 vol_bruto = (laa_sol * 100) / grado_n
@@ -142,19 +143,19 @@ with tab1:
             else:
                 st.error("Grado fuera de rango.")
         else:
-            st.warning("Ingrese los LAA.")
+            st.warning("Ingrese °GL y los LAA")
 
 # --- MODO 2: INVERSA (PESO -> LAA) ---
 with tab2:
     st.info("Utilice esta opción para determinar cuántos LAA hay en un peso registrado por Romana.")
     c1, c2 = st.columns(2)
     with c1:
-        grado_i = st.number_input("Grado Real (°GL):", 50.0, 100.0, 96.0, 0.1, key="gi", format="%.1f")
+        grado_i = st.number_input("Grado Real (°GL):", 50.0, 100.0, value=None, step=0.1, key="gi", format="%.1f", placeholder="0.0")
     with c2:
         peso_r = st.number_input("Peso en Romana (Kg):", min_value=0.0, value=None, step=0.1, key="pr", placeholder="Kg medidos")
 
     if st.button("CALCULAR LAA", use_container_width=True):
-        if peso_r:
+        if peso_r and grado_i:
             fp = obtener_fp(grado_i)
             if fp:
                 vol_real = peso_r * fp
@@ -169,4 +170,4 @@ with tab2:
             else:
                 st.error("Grado fuera de rango.")
         else:
-            st.warning("Ingrese el peso de la romana.")
+            st.warning("Ingrese °GL y Peso")
