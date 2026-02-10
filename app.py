@@ -3,16 +3,26 @@ import streamlit as st
 # 1. CONFIGURACIÓN COMPACTA
 st.set_page_config(page_title="Blending DUSA", page_icon="🧪", layout="centered")
 
-# Estilo CSS para eliminar el espacio superior y asegurar que el logo no se corte
+# Estilo CSS para eliminar el espacio superior y resaltar los resultados
 st.markdown("""
     <style>
-    .block-container {padding-top: 1rem; padding-bottom: 0rem;}
+    .block-container {padding-top: 0.5rem; padding-bottom: 0rem;}
     [data-testid="stMetricValue"] {font-size: 2rem; font-weight: bold;}
     [data-testid="stMetricLabel"] {font-size: 1.1rem;}
     /* Color para resaltar el peso en romana */
     div[data-testid="stMetric"]:nth-child(1) [data-testid="stMetricValue"] {color: #D35400;}
-    /* Asegurar que la imagen no tenga márgenes raros */
-    img {max-width: 100%; height: auto;}
+    /* Forzar que la imagen no se corte y tenga aire alrededor */
+    .logo-container {
+        display: flex;
+        justify-content: flex-start;
+        padding: 0px;
+        margin-bottom: 10px;
+    }
+    .logo-container img {
+        max-width: 150px; /* Un poco más grande para que se lea bien */
+        height: auto;
+        object-fit: contain;
+    }
     </style>
     """, unsafe_allow_html=True)
 
@@ -33,10 +43,10 @@ def obtener_fp(grado):
         return puntos[g_base] + ratio * (puntos[g_next] - puntos[g_base])
     return None
 
-# ENCABEZADO SIN COLUMNAS PARA EVITAR CORTES
+# ENCABEZADO CON HTML PARA EVITAR RECORTES DEL LOGO
 URL_LOGO = "https://media.licdn.com/dms/image/v2/C4E0BAQGROeCPt2-5rQ/company-logo_200_200/company-logo_200_200/0/1630651014568/destileras_unidas_s_a_logo?e=2147483647&v=beta&t=4KCIm7iySF8w6uXTN9ISvF6zPFRGhe8L3MTN2oGJh34"
 
-st.image(URL_LOGO, width=80) # Ajustado a 80 para que sea visible pero discreto
+st.markdown(f'<div class="logo-container"><img src="{URL_LOGO}"></div>', unsafe_allow_html=True)
 st.markdown("### Pase de Alcohol")
 st.caption("By Edwin Freitez")
 
@@ -60,6 +70,7 @@ if st.button("CALCULAR", use_container_width=True):
         st.divider()
         st.write(f"Resultados para **{entrada_g}°GL**:")
         
+        # LA PRIORIDAD: PESAR EN ROMANA
         st.metric(label="⚖️ PESAR EN ROMANA", value=f"{p_fmt} Kg")
         st.metric(label="Volumen Real", value=f"{v_fmt} Lts")
         
