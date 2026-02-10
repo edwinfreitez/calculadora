@@ -79,7 +79,7 @@ st.markdown(f"""
         <div>
             <p class="titulo-mini">Calculadora de Alcohol</p>
             <p class="subtitulo-mini">Pase de Alcohol</p>
-            <p class="autor-text">By Edwin Freitez</p>
+            <p class="autor-text">© Edwin Freitez</p>
         </div>
     </div>
     """, unsafe_allow_html=True)
