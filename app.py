@@ -3,24 +3,21 @@ import streamlit as st
 # 1. CONFIGURACIÓN
 st.set_page_config(page_title="Blending DUSA", page_icon="🧪", layout="centered")
 
-# CSS para alinear todo y agrandar el F.P.
+# CSS para alinear encabezado y ajustar tamaños
 st.markdown("""
     <style>
     .block-container {padding-top: 2rem; padding-bottom: 0rem;}
     
-    /* Estilo para los resultados numéricos */
+    /* Resultados numéricos */
     [data-testid="stMetricValue"] {font-size: 1.8rem; font-weight: bold;}
     div[data-testid="stMetric"]:nth-child(1) [data-testid="stMetricValue"] {color: #D35400;}
     
-    /* Ajuste para que el F.P. se vea más grande */
-    .fp-text {
-        font-size: 1.2rem;
-        font-weight: bold;
-        color: #2E86C1;
-        background-color: #F4F6F7;
-        padding: 10px;
-        border-radius: 5px;
-        text-align: center;
+    /* F.P. al final, legible pero discreto */
+    .fp-final {
+        font-size: 1rem;
+        color: #566573;
+        margin-top: 20px;
+        font-weight: 500;
     }
     
     /* Alineación de logo y texto */
@@ -50,7 +47,7 @@ def obtener_fp(grado):
         return puntos[g_base] + ratio * (puntos[g_next] - puntos[g_base])
     return None
 
-# ENCABEZADO HORIZONTAL (Logo a la izquierda, título a la derecha)
+# ENCABEZADO HORIZONTAL (Compacto)
 URL_LOGO = "https://media.licdn.com/dms/image/v2/C4E0BAQGROeCPt2-5rQ/company-logo_200_200/company-logo_200_200/0/1630651014568/destileras_unidas_s_a_logo?e=2147483647&v=beta&t=4KCIm7iySF8w6uXTN9ISvF6zPFRGhe8L3MTN2oGJh34"
 
 st.markdown(f"""
@@ -81,14 +78,14 @@ if st.button("CALCULAR", use_container_width=True):
         p_fmt = "{:,}".format(round(peso_bruto)).replace(',', '.')
         
         st.divider()
+        st.write(f"Resultados para **{entrada_g}°GL**:")
         
-        # EL F.P. AHORA TIENE SU PROPIO CUADRO RESALTADO
-        st.markdown(f'<div class="fp-text">Factor F.P.: {fp:.4f}</div>', unsafe_allow_html=True)
-        st.write("") # Espacio
-        
-        # RESULTADOS
+        # PRIORIDAD: PESAR EN ROMANA
         st.metric(label="⚖️ PESAR EN ROMANA", value=f"{p_fmt} Kg")
         st.metric(label="Volumen Real", value=f"{v_fmt} Lts")
+        
+        # F.P. AL FINAL (Como estaba, pero más grande)
+        st.markdown(f'<div class="fp-final">Factor F.P. aplicado: {fp:.4f}</div>', unsafe_allow_html=True)
         
     else:
         st.error("Error en rango de grado.")
