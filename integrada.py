@@ -9,14 +9,19 @@ st.markdown("""
     .block-container {padding-top: 2rem; padding-bottom: 2rem;}
     [data-testid="stMetricValue"] {font-size: 1.8rem; font-weight: bold;}
     
-    /* 1. Cambia el color del texto de la pestaña seleccionada a azul */
+    /* 1. Color de la fuente (pestaña seleccionada) */
     [data-testid="stTabs"] button[aria-selected="true"] p {
         color: #1A5276 !important;
     }
 
-    /* 2. Cambia el color de la línea de abajo a azul */
+    /* 2. Color de la línea de abajo (el borde) */
     [data-testid="stTabs"] button[aria-selected="true"] {
         border-bottom-color: #1A5276 !important;
+    }
+
+    /* 3. Color de la línea decorativa (la que suele quedarse roja) */
+    [data-testid="stTabs"] button[aria-selected="true"] > div:first-child {
+        background-color: #1A5276 !important;
     }
     /* Estilo para el encabezado */
     .header-container {
