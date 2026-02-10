@@ -12,11 +12,11 @@ st.markdown("""
     [data-testid="stMetricValue"] {font-size: 1.8rem; font-weight: bold;}
     div[data-testid="stMetric"]:nth-child(1) [data-testid="stMetricValue"] {color: #D35400;}
     
-    /* F.P. al final, legible pero discreto */
+    /* F.P. ajustado: sin tanto espacio arriba */
     .fp-final {
-        font-size: 1rem;
+        font-size: 1.1rem;
         color: #566573;
-        margin-top: 20px;
+        margin-top: 5px;
         font-weight: 500;
     }
     
@@ -47,7 +47,7 @@ def obtener_fp(grado):
         return puntos[g_base] + ratio * (puntos[g_next] - puntos[g_base])
     return None
 
-# ENCABEZADO HORIZONTAL (Compacto)
+# ENCABEZADO HORIZONTAL
 URL_LOGO = "https://media.licdn.com/dms/image/v2/C4E0BAQGROeCPt2-5rQ/company-logo_200_200/company-logo_200_200/0/1630651014568/destileras_unidas_s_a_logo?e=2147483647&v=beta&t=4KCIm7iySF8w6uXTN9ISvF6zPFRGhe8L3MTN2oGJh34"
 
 st.markdown(f"""
@@ -77,14 +77,13 @@ if st.button("CALCULAR", use_container_width=True):
         v_fmt = "{:,}".format(round(vol_bruto)).replace(',', '.')
         p_fmt = "{:,}".format(round(peso_bruto)).replace(',', '.')
         
-        st.divider()
         st.write(f"Resultados para **{entrada_g}°GL**:")
         
-        # PRIORIDAD: PESAR EN ROMANA
+        # RESULTADOS
         st.metric(label="⚖️ PESAR EN ROMANA", value=f"{p_fmt} Kg")
         st.metric(label="Volumen Real", value=f"{v_fmt} Lts")
         
-        # F.P. AL FINAL (Como estaba, pero más grande)
+        # F.P. PEGADO A LOS RESULTADOS
         st.markdown(f'<div class="fp-final">Factor F.P. aplicado: {fp:.4f}</div>', unsafe_allow_html=True)
         
     else:
